@@ -79,6 +79,9 @@ def create_ticket():
         return jsonify({"error": "Unknown category"}), 400
     if priority not in PRIORITIES:
         return jsonify({"error": "Unknown priority"}), 400
+    if not isinstance(title, str) or not title.strip():
+        return jsonify({"error": "Title is required"}), 400
+    title = title.strip()
 
     ticket = {
         "id": max((t["id"] for t in TICKETS), default=0) + 1,
